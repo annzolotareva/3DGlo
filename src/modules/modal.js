@@ -2,7 +2,7 @@ const modal = () => {
   let screenWidth = screen.width;
   const modal = document.querySelector(".popup");
   const buttons = document.querySelectorAll(".popup-btn");
-  const closeBtn = modal.querySelector(".popup-close");
+
   let count = 0;
   let idInterval;
   let isAnimatationCanceled;
@@ -35,13 +35,15 @@ const modal = () => {
     });
   });
 
-  closeBtn.addEventListener("click", () => {
-    if ((isAnimatationCanceled = false)) {
-      cancelAnimationFrame(idInterval);
-      count = 0;
-      isAnimatationCanceled = true;
+  modal.addEventListener("click", (e) => {
+    if (!e.target.closest(".popup-content") || e.target.classList.contains("popup-close")) {
+      modal.style.display = "none";
+      if ((isAnimatationCanceled = false)) {
+        cancelAnimationFrame(idInterval);
+        count = 0;
+        isAnimatationCanceled = true;
+      }
     }
-    modal.style.display = "none";
   });
 };
 
