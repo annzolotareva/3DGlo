@@ -1,23 +1,18 @@
+import { animate } from "./helpers";
 const modal = () => {
   let screenWidth = screen.width;
   const modal = document.querySelector(".popup");
   const buttons = document.querySelectorAll(".popup-btn");
 
-  let count = 0;
-  let idInterval;
-  let isAnimatationCanceled;
-
-  const appearanceModal = () => {
-    count++;
-    idInterval = requestAnimationFrame(appearanceModal);
-    if (count * 0.05 <= 1) {
-      modal.style.opacity = count * 0.05;
-    } else {
-      cancelAnimationFrame(idInterval);
-      count = 0;
-      isAnimatationCanceled = true;
-    }
-  };
+  animate({
+    duration: 1000,
+    timing(timeFraction) {
+      return timeFraction;
+    },
+    draw(progress) {
+      modal.style.width = progress;
+    },
+  });
 
   window.addEventListener("resize", () => {
     screenWidth = screen.width;
@@ -26,10 +21,7 @@ const modal = () => {
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
       if (screenWidth >= 768) {
-        isAnimatationCanceled = false;
-        appearanceModal();
-      } else {
-        isAnimatationCanceled = true;
+        animate();
       }
       modal.style.display = "block";
     });
@@ -38,11 +30,6 @@ const modal = () => {
   modal.addEventListener("click", (e) => {
     if (!e.target.closest(".popup-content") || e.target.classList.contains("popup-close")) {
       modal.style.display = "none";
-      if ((isAnimatationCanceled = false)) {
-        cancelAnimationFrame(idInterval);
-        count = 0;
-        isAnimatationCanceled = true;
-      }
     }
   });
 };
