@@ -58,10 +58,18 @@ const sendForm = (formId) => {
       sendData(formBody)
         .then((data) => {
           statusBlock.textContent = successText;
-          setTimeout(() => {
-            statusBlock.textContent = "";
-          }, 3000);
-
+          if (formId == "form1" || formId == "form2") {
+            setTimeout(() => {
+              statusBlock.textContent = "";
+            }, 3000);
+          }
+          if (formId == "form3") {
+            const modal = document.querySelector(".popup");
+            setTimeout(() => {
+              modal.style.display = "none";
+              statusBlock.textContent = "";
+            }, 3000);
+          }
           formElements.forEach((input) => {
             input.value = "";
           });
