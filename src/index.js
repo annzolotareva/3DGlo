@@ -7,7 +7,7 @@ import tabs from "./modules/tabs.js";
 import slider from "./modules/slider.js";
 import sendForm from "./modules/sendForm.js";
 
-timer("30 december 2021");
+timer("15 january 2022");
 menu();
 modal();
 calc(100);
@@ -16,30 +16,6 @@ validationForm("form2");
 validationForm("form3");
 tabs();
 slider();
-sendForm({
-  formId: "form1",
-  someElem: [
-    {
-      type: "block",
-      id: "total",
-    },
-  ],
-});
-sendForm({
-  formId: "form2",
-  someElem: [
-    {
-      type: "block",
-      id: "total",
-    },
-  ],
-});
-sendForm({
-  formId: "form3",
-  someElem: [
-    {
-      type: "block",
-      id: "total",
-    },
-  ],
-});
+sendForm("form1");
+sendForm("form2");
+sendForm("form3");
