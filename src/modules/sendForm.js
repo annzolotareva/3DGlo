@@ -4,6 +4,7 @@ const sendForm = (formId) => {
   const loadText = "Загрузка...";
   const errorText = "Ошибка";
   const successText = "Спасибо! Наш менеджер с вами свяжется";
+  const formElements = form.querySelectorAll("input");
 
   statusBlock.style.color = "#ffffff";
 
@@ -43,7 +44,6 @@ const sendForm = (formId) => {
   };
 
   const submitForm = () => {
-    const formElements = form.querySelectorAll("input");
     const formData = new FormData(form);
     const formBody = {};
 
@@ -82,11 +82,20 @@ const sendForm = (formId) => {
     }
   };
 
+const requiredEmail = () => {
+  formElements.forEach((input) => {
+      if (input.name == "user_email") {
+        console.log(input);
+        input.setAttribute("required",true);
+      } 
+      });
+};
+
   try {
     if (!form) {
       throw new Error("Верните форму на место!");
     }
-
+    requiredEmail();
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       submitForm();
